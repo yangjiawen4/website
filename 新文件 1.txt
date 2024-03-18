@@ -1,5 +1,6 @@
 <html>
 <head>
+<link rel="stylesheet" type=text/css href="mystyle.css "/>
 <title>form-table</title>
 <head>
 <body>
@@ -57,5 +58,6 @@
 </form>
 <p>
 	&nbsp;</p>
+
 </body>
 </html>
