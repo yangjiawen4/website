@@ -1,0 +1,91 @@
+<html>
+<head>
+<style>
+#disk{
+   background:lightgreen;
+   border-radius:50%;
+   -webkit-border-radius:50%;
+   -moz-border-radius:50%;
+   height:100px;
+   width:100px
+}
+
+#egg {
+      display: block;
+      width: 126px;
+      height: 180px;
+      background-color: orange;
+      border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    }
+  
+
+#heart {
+      position: relative;
+      width: 100px;
+      height: 90px;
+    }
+    #heart:before,
+    #heart:after {
+      position: absolute;
+      content: "";
+      left: 50px;
+      top: 0;
+      width: 50px;
+      height: 80px;
+      background: red;
+      border-radius: 50px 50px 0 0;
+      transform: rotate(-45deg);
+      transform-origin: 0 100%;
+    }
+    #heart:after {
+      left: 0;
+      transform: rotate(45deg);
+      transform-origin: 100% 100%;
+    }
+	#star-five {
+      margin: 50px 0;
+      position: relative;
+      display: block;
+      color: red;
+      width: 0px;
+      height: 0px;
+      border-right: 100px solid transparent;
+      border-bottom: 70px solid red;
+      border-left: 100px solid transparent;
+      transform: rotate(35deg);
+    }
+    #star-five:before {
+      border-bottom: 80px solid red;
+      border-left: 30px solid transparent;
+      border-right: 30px solid transparent;
+      position: absolute;
+      height: 0;
+      width: 0;
+      top: -45px;
+      left: -65px;
+      display: block;
+      content: '';
+      transform: rotate(-35deg);
+    }
+    #star-five:after {
+      position: absolute;
+      display: block;
+      color: yellow;
+      top: 3px;
+      left: -105px;
+      width: 0px;
+      height: 0px;
+      border-right: 100px solid transparent;
+      border-bottom: 70px solid red;
+      border-left: 100px solid transparent;
+      transform: rotate(-70deg);
+      content: '';
+    }
+</style> 
+</head>
+<body>
+<div id="disk"></div>
+<div id="egg"></div>
+<div id="heart"></div>
+<div id="star-five"></div>
+</html>
