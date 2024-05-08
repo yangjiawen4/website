@@ -151,4 +151,663 @@ function updateTimePeriod() {
 </body>  
 </html>
     
+    <html>  
+    <head>  
+        <title>Hanoi</title>  
+        <meta charset="UTF-8">  
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+        <style>  
+            .peg {  
+                position: absolute;  
+                width: 50px;  
+                height: 300px;  
+                border: 2px solid black;  
+                margin-right: 100px;  
+                display: flex;  
+                flex-direction: column-reverse;  
+                align-items: flex-start;  
+                gap: 2px;  
+            }  
+            .disk {  
+                width: 40px;  
+                height: 20px;  
+                border-radius: 10px;  
+                background-color: orange;  
+            }  
+        </style>  
+    </head>  
+    <body>  
+        <script src="js/Hanoi.js"></script>  
+  
+        <div class="peg" id="peg1"></div>  
+        <div class="peg" id="peg2"></div>  
+        <div class="peg" id="peg3"></div>  
+    </body>  
+</html>
+
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+<meta charset="UTF-8">  
+<meta name="viewport" content="width=device-width, initial-scale=1.0">  
+<title>Tower of Hanoi Controls</title>  
+<style>  
+#topButton {  
+  
+  position: fixed;  
+  
+  top: 0;  
+  right:  0;  
     
+ 
+}
+</style>  
+</head>  
+<body>  
+  
+<!-- Disks selection -->  
+<label for="numDisks">Select number of disks:</label>  
+<select id="numDisks" onchange="updateGame()">  
+  <option value="3">3</option>  
+  <option value="4">4</option>  
+  <option value="5">5</option> 
+  <option value="6">6</option> 
+  <option value="7">7</option> 
+  <option value="8">8</option>  
+  <option value="9">9</option> 
+</select>  
+ 
+<button id="startButton" onclick="startGame()">Start</button>  
+ 
+<button id="pauseButton" onclick="pauseGame()" disabled>Pause</button>  
+   
+<button id="resumeButton" onclick="resumeGame()" disabled>Resume</button>  
+   
+<label for="timePeriod">Change time period:</label>  
+<select id="timePeriod" onchange="updateTimePeriod()">  
+  <option value="1000">1 second</option>  
+  <option value="500">0.5 second</option>  
+  <option value="2000">2 seconds</option>
+  <option value="3000">3 seconds</option> 
+  <option value="4000">4 seconds</option>  
+<option value="5000">5 seconds</option>
+<option value="6000">6 seconds</option>  
+
+   
+</select>  
+  
+<!-- Add your game board and logic here -->  
+  
+<script>  
+// Placeholder for your game logic  
+var gameRunning = false;  
+var timePeriod = 1000; // Default time period in milliseconds  
+  
+function startGame() {  
+  // Start the game logic here  
+  gameRunning = true;  
+  // Enable pause button  
+  document.getElementById('pauseButton').disabled = false;  
+  // Disable resume button (if needed)  
+  document.getElementById('resumeButton').disabled = true;  
+  // Call your game loop function or start animation  
+}  
+  
+function pauseGame() {  
+  // Pause the game logic here  
+  gameRunning = false;  
+  // Disable pause button  
+  document.getElementById('pauseButton').disabled = true;  
+  // Enable resume button  
+  document.getElementById('resumeButton').disabled = false;  
+}  
+  
+function resumeGame() {  
+  // Resume the game logic here  
+  gameRunning = true;  
+  // Disable resume button  
+  document.getElementById('resumeButton').disabled = true;  
+  // Enable pause button  
+  document.getElementById('pauseButton').disabled = false;  
+  // Call your game loop function or continue animation  
+}  
+  
+function updateGame() {  
+  // Get the selected number of disks  
+  var numDisks = parseInt(document.getElementById('numDisks').value, 10);  
+  // Update your game with the new number of disks  
+  console.log('Updating game with', numDisks, 'disks');  
+  // Reset game state if needed  
+}  
+  
+function updateTimePeriod() {  
+  // Get the selected time period  
+  timePeriod = parseInt(document.getElementById('timePeriod').value, 10);  
+  // Update your game with the new time period  
+  console.log('Updating game with time period of', timePeriod, 'milliseconds');  
+
+}   
+</script>  
+  
+</body>  
+</html>
+    
+    <html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <script src="js/quadratic.js"></script>
+    </body>
+</html>
+<html>
+    <head>
+        <title>Hanoi</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            .hanoi-tower {  
+        position: relative;  
+        width: 200px;  
+        height: 400px; /* 根据需要调整 */  
+        margin: 20px auto; /* 居中显示 */  
+        background-color: white; /* 可选，用于显示塔座 */  
+        border-radius: 10px;  
+        overflow: hidden; /* 隐藏超出塔座的层 */  
+    }  
+  
+    .layer {  
+        position: absolute;  
+        width: 180px; /* 比容器稍小以显示边框或阴影 */  
+        height: 50px; /* 根据需要调整 */  
+        background-color: white;  
+        border-radius: 5px;  
+        box-shadow: 0 10px 5px -5px rgba(0, 0, 0, 0.2); /* 模拟与地面的接触 */  
+        margin: 0 auto; /* 水平居中 */  
+        bottom: 0; /* 从底部开始堆叠 */  
+          
+    }  
+  
+    /* 其他层可以通过增加bottom值来堆叠 */  
+    .layer:nth-child(2) { bottom: 55px; }  
+    .layer:nth-child(3) { bottom: 110px; }  
+      
+ 
+ .pole {  
+            position: absolute;  
+            width: 50px;  
+            height: 610px;  
+            background-color: #bbb;  
+            border-radius: 10px;  
+            /* 根据需要调整柱子位置 */  
+            left: 181px;   
+            top: 0;  
+        }  
+  
+        .pole:nth-child(2) {  
+            left: 707.7px; 
+        }     
+        .pole:nth-child(3) {  
+            left: 1350px; 
+        }       
+         .disk {  
+        position: absolute;  
+        width: 90px;  
+        height: 20px;  
+        background-color: white;  
+        border-radius: 50%;  
+        bottom: 0; /* Starts at the bottom of the pillar */  
+        left: 50%;  
+        transform: translateX(-50%);  
+        animation: moveDisk 5s ease-in-out infinite; /* Infinite loop for demonstration */ 
+       
+    }  
+    
+            .clsl{
+                color:purple
+            }
+            .layer{
+                position:absolute;
+                background-color: white;
+                border-radius: 5px;
+            }
+           </style>
+            <style id=dynamic>
+            @keyframes diskmove
+            {
+                0%{
+                    left:100px;
+                    top:200px
+                }
+                100%{
+                    left:400px;
+                    top:500px
+                }
+            }
+    
+    
+    
+               
+        
+   
+      </style>
+
+     
+</head>  
+<body>  
+      
+    <div class="hanoi-tower">  
+        <div class="layer"></div>  
+    </div>  
+  
+      
+    <div class="pole"></div>  
+    <div class="pole"></div>  
+    <div class="pole"></div>   
+    
+ 
+      
+    
+</body>  
+<script src="js/Drag.js"></script>
+                
+
+
+    <body>
+        <script src="js/Hanoi.js"></script>
+        
+    </body>
+    <div>
+    <div style="background-color: yellow;width:200px;height: 60px;border-radius: 100px/30px;z-index: 1"></div> 
+<div style="position: relative;top:-30px;background-color: orange;width:200px;height: 20px;z-index: 2"></div>
+    <div style="position: relative;top:-60px;background-color: yellow;width:200px;height: 60px;border-radius: 100px/30px;border: 1px red solid;z-index: 10"></div>
+
+
+
+</html>
+
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+<meta charset="UTF-8">  
+<meta name="viewport" content="width=device-width, initial-scale=1.0">  
+<title>Tower of Hanoi Controls</title>  
+<style>  
+#topButton {  
+  
+  position: fixed;  
+  
+  top: 0;  
+  right:  0;  
+    
+ 
+}
+</style>  
+</head>  
+<body>  
+  
+<!-- Disks selection -->  
+<label for="numDisks">Select number of disks:</label>  
+<select id="numDisks" onchange="updateGame()">  
+  <option value="3">3</option>  
+  <option value="4">4</option>  
+  <option value="5">5</option> 
+  <option value="6">6</option> 
+  <option value="7">7</option> 
+  <option value="8">8</option>  
+  <option value="9">9</option> 
+</select>  
+ 
+<button id="startButton" onclick="startGame()">Start</button>  
+ 
+<button id="pauseButton" onclick="pauseGame()" disabled>Pause</button>  
+   
+<button id="resumeButton" onclick="resumeGame()" disabled>Resume</button>  
+   
+<label for="timePeriod">Change time period:</label>  
+<select id="timePeriod" onchange="updateTimePeriod()">  
+  <option value="1000">1 second</option>  
+  <option value="500">0.5 second</option>  
+  <option value="2000">2 seconds</option>
+  <option value="3000">3 seconds</option> 
+  <option value="4000">4 seconds</option>  
+<option value="5000">5 seconds</option>
+<option value="6000">6 seconds</option>  
+
+   
+</select>  
+  
+<!-- Add your game board and logic here -->  
+  
+<script>  
+// Placeholder for your game logic  
+var gameRunning = false;  
+var timePeriod = 1000; // Default time period in milliseconds  
+  
+function startGame() {  
+  // Start the game logic here  
+  gameRunning = true;  
+  // Enable pause button  
+  document.getElementById('pauseButton').disabled = false;  
+  // Disable resume button (if needed)  
+  document.getElementById('resumeButton').disabled = true;  
+  // Call your game loop function or start animation  
+}  
+  
+function pauseGame() {  
+  // Pause the game logic here  
+  gameRunning = false;  
+  // Disable pause button  
+  document.getElementById('pauseButton').disabled = true;  
+  // Enable resume button  
+  document.getElementById('resumeButton').disabled = false;  
+}  
+  
+function resumeGame() {  
+  // Resume the game logic here  
+  gameRunning = true;  
+  // Disable resume button  
+  document.getElementById('resumeButton').disabled = true;  
+  // Enable pause button  
+  document.getElementById('pauseButton').disabled = false;  
+  // Call your game loop function or continue animation  
+}  
+  
+function updateGame() {  
+  // Get the selected number of disks  
+  var numDisks = parseInt(document.getElementById('numDisks').value, 10);  
+  // Update your game with the new number of disks  
+  console.log('Updating game with', numDisks, 'disks');  
+  // Reset game state if needed  
+}  
+  
+function updateTimePeriod() {  
+  // Get the selected time period  
+  timePeriod = parseInt(document.getElementById('timePeriod').value, 10);  
+  // Update your game with the new time period  
+  console.log('Updating game with time period of', timePeriod, 'milliseconds');  
+
+}   
+</script>  
+  
+</body>  
+</html>
+
+<html>  
+    <head>  
+        <title>Hanoi</title>  
+        <meta charset="UTF-8">  
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+        <style>  
+            .peg {  
+                position: absolute;  
+                width: 50px;  
+                height: 300px;  
+                border: 2px solid black;  
+                margin-right: 100px;  
+                display: flex;  
+                flex-direction: column-reverse;  
+                align-items: flex-start;  
+                gap: 2px;  
+            }  
+            .disk {  
+                width: 40px;  
+                height: 20px;  
+                border-radius: 10px;  
+                background-color: orange;  
+            }  
+        </style>  
+    </head>  
+    <body>  
+        <script src="js/Hanoi.js"></script>  
+  
+        <div class="peg" id="peg1"></div>  
+        <div class="peg" id="peg2"></div>  
+        <div class="peg" id="peg3"></div>  
+    </body>  
+</html>
+
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+<meta charset="UTF-8">  
+<meta name="viewport" content="width=device-width, initial-scale=1.0">  
+<title>Tower of Hanoi Controls</title>  
+<style>  
+#topButton {  
+  
+  position: fixed;  
+  
+  top: 0;  
+  right:  0;  
+    
+ 
+}
+</style>  
+</head>  
+<body>  
+  
+<!-- Disks selection -->  
+<label for="numDisks">Select number of disks:</label>  
+<select id="numDisks" onchange="updateGame()">  
+  <option value="3">3</option>  
+  <option value="4">4</option>  
+  <option value="5">5</option> 
+  <option value="6">6</option> 
+  <option value="7">7</option> 
+  <option value="8">8</option>  
+  <option value="9">9</option> 
+</select>  
+ 
+<button id="startButton" onclick="startGame()">Start</button>  
+ 
+<button id="pauseButton" onclick="pauseGame()" disabled>Pause</button>  
+   
+<button id="resumeButton" onclick="resumeGame()" disabled>Resume</button>  
+   
+<label for="timePeriod">Change time period:</label>  
+<select id="timePeriod" onchange="updateTimePeriod()">  
+  <option value="1000">1 second</option>  
+  <option value="500">0.5 second</option>  
+  <option value="2000">2 seconds</option>
+  <option value="3000">3 seconds</option> 
+  <option value="4000">4 seconds</option>  
+<option value="5000">5 seconds</option>
+<option value="6000">6 seconds</option>  
+
+   
+</select>  
+  
+<!-- Add your game board and logic here -->  
+  
+<script>  
+// Placeholder for your game logic  
+var gameRunning = false;  
+var timePeriod = 1000; // Default time period in milliseconds  
+  
+function startGame() {  
+  // Start the game logic here  
+  gameRunning = true;  
+  // Enable pause button  
+  document.getElementById('pauseButton').disabled = false;  
+  // Disable resume button (if needed)  
+  document.getElementById('resumeButton').disabled = true;  
+  // Call your game loop function or start animation  
+}  
+  
+function pauseGame() {  
+  // Pause the game logic here  
+  gameRunning = false;  
+  // Disable pause button  
+  document.getElementById('pauseButton').disabled = true;  
+  // Enable resume button  
+  document.getElementById('resumeButton').disabled = false;  
+}  
+  
+function resumeGame() {  
+  // Resume the game logic here  
+  gameRunning = true;  
+  // Disable resume button  
+  document.getElementById('resumeButton').disabled = true;  
+  // Enable pause button  
+  document.getElementById('pauseButton').disabled = false;  
+  // Call your game loop function or continue animation  
+}  
+  
+function updateGame() {  
+  // Get the selected number of disks  
+  var numDisks = parseInt(document.getElementById('numDisks').value, 10);  
+  // Update your game with the new number of disks  
+  console.log('Updating game with', numDisks, 'disks');  
+  // Reset game state if needed  
+}  
+  
+function updateTimePeriod() {  
+  // Get the selected time period  
+  timePeriod = parseInt(document.getElementById('timePeriod').value, 10);  
+  // Update your game with the new time period  
+  console.log('Updating game with time period of', timePeriod, 'milliseconds');  
+
+}   
+</script>  
+  
+</body>  
+</html>
+    
+    const THICKNESS=60;
+const TOPWIDTH=100;
+const INDENT=20;
+const GAP=20;
+var RATIO=0.5;
+N=8;
+
+function layer(n,i)
+{
+    let x=i*INDENT;
+    let y=(n-i-1)*THICKNESS;
+    let width=2*(n-i-1)*INDENT+TOPWIDTH;
+    let height=THICKNESS;
+    let ele=document.createElement("div");
+    ele.className="layer";
+    ele.style.left=x+'px';
+    ele.style.top=y+'px';
+    ele.style.width=width+'px';
+    ele.style.height=(height-GAP)+'px';
+    ele.id="layer"+i;
+    ele.innerHTML=disk(width,height,i);
+    ele.style.backgroundColor='transparent';
+    document.body.appendChild(ele);
+}
+
+function tower(n)
+{
+    for(let i=0;i<n;i++)
+        layer(n,i);
+    
+    for(let i=0;i<n;i++)
+    {
+        let disk=document.getElementById('layer'+i);
+        Drag.init(disk);
+    }
+}
+
+function move(i,x,y)
+{
+    let ele=document.getElementById("layer"+i);
+    ele.style.left=x+'px';
+    ele.style.top=y+'px';
+}
+
+function disk(w,h,i)
+{
+    let h1=w*RATIO;
+    
+    let color='rgb('+Math.floor(Math.random()*256)+","
+                            +Math.floor(Math.random()*256)+","
+                            +Math.floor(Math.random()*256)+")";
+    let s='<div style="margin-top: '+h1+'px;width:'+w+'px;height:'+h+'px;background-color:'+color+'"></div>'
+        +'<div style="margin:-'+h1/2+'px 0px -'+(h1+h)+'px 0px;width:'+w+'px;height:'+h1+'px;background-color:'+color+';border-radius:'+(w/2)+'px/'+h1/2+'px"></div>'
+        +'<div style="width:'+(w-2)+'px;height:'+h1+'px;background-image: radial-gradient(#101010,#305020,15%,yellow,'+color+');border-radius: '+(w/2-1)+'px/'+h1/2+'px;border:1px red solid;"></div>';
+       return s;
+}
+
+function moveDisk(i)
+{
+    let disk=document.getElementById('layer'+i);
+    disk.style.animation='diskmove 2s 1';
+}
+tower(N);
+//moveDisk(2);
+//setTimeout('moveDisk(4)',2000);
+
+var alldiv=document.querySelectorAll('div');
+for(let j=0;j<alldiv.length;j++)
+    alldiv[j].classList.add('cls1');
+
+var My={
+    println:function(x){document.writeln(x+'<br>');},
+    $:function(x){return document.getElementById(x);}
+}
+let instructions=[];
+function move(n,source,destin,temp)
+{
+    if(n===1)
+        instructions.push([source,destin]);
+    else
+    {
+        move(n-1,source,temp,destin);
+        instructions.push([source,destin]);
+        move(n-1,temp,destin,source);
+    }
+}
+move(N,0,1,2);
+for(let p of instructions)
+My.println(p[0]+"-->"+p[1]);
+
+let stack=[];
+stack[0]=[];for(let i=0;i<N;i++)stack[0].push(i);
+stack[1]=[];
+stack[2]=[];
+//move(1,2)means:disk poped from 1,read out its (x0,y0)
+//read out(x1,y1)from top of pier 2
+//push the disk to the pier 2
+function movedisk(k) //k-th instruction
+{
+    let p=instructions[k];
+    let s=p[0];
+    let d=p[1];
+    let topid=stack[s].pop();
+    let disk=My.$('layer'+topid);
+    let x0=disk.style.left;
+    let y0=disk.style.top;
+	
+    let x1=((screen.width-TOPWIDTH)/2.5*d)+'px';
+    let y1=(N*THICKNESS)+'px';
+    let q=stack[d];
+    if (q.length>0)
+    {
+        let topid1=q[q.length-1];
+        let disk1=My.$('layer'+topid1);
+        x1=disk1.style.left;
+        y1=disk1.style.top;
+        y1=(parseInt(y1.substring(0,y1.length-2))-THICKNESS)+'px';
+	let w1=parseInt(disk1.style.width.replace(/px/,''));
+	let w=parseInt(disk.style.width.replace(/px/,''));
+	let diff=(w1-w)/2;
+	x1=(parseInt(x1.replace(/px/,''))+diff)+'px';
+    }
+    
+    q.push(topid);
+    
+let kftext="@keyframes diskmoveK{0%{left:X;top:Y}\n30%{left:X;top:0px}\n70%{left:U;top:0px}\n100%{left:U;top:V}}";
+    My.$('dynamic').innerHTML =kftext.replace(/K/,k).replace(/X/,x0).replace(/Y/,y0).replace(/U/,x1).replace(/V/,y1);
+    disk.style.animation="diskmove"+ k +" 5s 1";
+    disk.style.left=x1;
+    disk.style.top=y1;
+}
+movedisk(0);
+for(let i=1;i<instructions.length;i++)
+setTimeout('movedisk('+i+')',i*1010);
+
