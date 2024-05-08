@@ -1,0 +1,26 @@
+function letTest()
+{
+let y=1;
+if(true)
+{
+let y=2;//Different variable!
+console.log(y);//Outputs:2
+}
+console.log(y);//Outputs：1
+}
+LetTest();
+function varTest()
+{
+var y=1;
+if(true)
+{
+var y=2;//Different variable!
+console.log(y);//Outputs:2
+}
+console.log(y);//Outputs:2
+}
+varTest();
+//x=1
+//let y;
+//var y;
+//declaration and initialization initalize
