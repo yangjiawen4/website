@@ -133,4 +133,236 @@ function startgame(){movedisk(0);
 for(let i=1;i<instructions.length;i++)
 setTimeout('movedisk('+i+')',i*1010);}
 
+<<<<<<< HEAD
+class Cynlinder
+{
+    static RATIO=0.2;
+    static THICKNESS=60;
+    static TOPWIDTH=40;
+    #trajactory=[];//在class内部若要在#前加"."，前缀只能是this
+    width;
+    height;
+    x;
+    y;
+    id;
+    type;
+    constructor(w,h,x,y,i,t)
+    {
+        this.#trajactory=[[1,2],[1,3],[3,4],[4,5]];
+        this.width=w;
+        this.height=h;
+        this.left=x;
+        this.top=y;
+        this.id=i;
+        this.type=t;
+    }
+    makehtml()
+    {
+        let d=document.createElement('div');
+        d.id=this.type + this.id;
+        d.className='layer';
+        d.style.cssText=`left:${this.left}px;
+                         top:${this.top}px;
+                         width:${this.width}px;
+                         height:${this.height}px;`;//寻找this.left的值并传输到此处
+        d.innerHTML=this.makecynlinder(this.x,this.y,this.id);
+        document.body.appendChild(d);
+    };
+    slowmove(x1,y1,s)
+    {
+    }
+    makecynlinder(w,h,i)
+    {
+    let h1=w*Cynlinder.RATIO;
+    //let color=colors[i];
+    let color='rgb('+Math.floor(Math.random()*256)+","
+                            +Math.floor(Math.random()*256)+","
+                            +Math.floor(Math.random()*256)+")";
+    let s='<div style="margin-top: '+h1+'px;width:'+w+'px;height:'+h+'px;background-color:'+color+'"></div>'
+        +'<div style="margin:-'+h1/2+'px 0px -'+(h1+h)+'px 0px;width:'+w+'px;height:'+h1+'px;background-color:'+color+';border-radius:'+(w/2)+'px/'+h1/2+'px"></div>'
+        +'<div style="width:'+(w-2)+'px;height:'+h1+'px;background-image: radial-gradient(#101010,#305020,15%,yellow,'+color+');border-radius: '+(w/2-1)+'px/'+h1/2+'px;border:1px red solid;"></div>';
+       return s;
+    }
+}
+
+
+class Disk extends Cynlinder
+{
+    slowmove(xys,s)
+    {
+        
+    }
+    }
+
+   
+class Pillar extends Cynlinder
+{
+    makecynlinder(w,h,i)
+    {
+        let xx=super.makecynlinder();
+        return xx.replace(/background.image:[^;]+/,'');
+    }
+    slowresize(newh,s,anchor)
+    {
+        
+    }
+}
+
+class Game
+{
+    static INDENT=20;
+    static DIAMETER=20;
+    N;
+    disks=[];
+    piers=[];
+    constructor(n)
+    {
+        this.N=n;
+        for(let i=0;i<n;i++)
+        {
+            let x=i*(screen.width/2.5);
+            let y=0;
+            let w=2*(n-i-1)*Game.INDENT+Cynlinder.TOPWIDTH;
+            let h=this.N*Cynlinder.THICKNESS;
+            disks[i]=new Disk(w,h,x,y,i,'disk');
+            
+        }
+        for(let i=0;i<6;i++)
+        {
+            let x=i*(screen.width/2.5);
+            let y=0;
+            let w=2*(n-i-1)*Game.INDENT+Cynlinder.TOPWIDTH;
+            let h=this.N*Cynlinder.THICKNESS;
+            piers[i] = new Pillar(w,h,x,y,i,'pillar');
+        }
+    }
+}
+/* global atEndDrag */
+
+var Drag = 
+{
+    parseIntpx : function (str)
+    {
+        return parseInt(str.replace(/px/,''));
+    },
+    
+	obj : null,
+    
+	init : function(o, oRoot, minX, maxX, minY, maxY, bSwapHorzRef, bSwapVertRef, fXMapper, fYMapper)
+	{
+        if (o===null) return;
+		
+
+		o.hmode			= bSwapHorzRef ? false : true ;
+		o.vmode			= bSwapVertRef ? false : true ;
+
+		o.root = oRoot && oRoot !== null ? oRoot : o ;
+
+		if (o.hmode  && isNaN(Drag.parseIntpx(o.root.style.left  ))) o.root.style.left   = "0px";
+		if (o.vmode  && isNaN(Drag.parseIntpx(o.root.style.top   ))) o.root.style.top    = "0px";
+		if (!o.hmode && isNaN(Drag.parseIntpx(o.root.style.right ))) o.root.style.right  = "0px";
+		if (!o.vmode && isNaN(Drag.parseIntpx(o.root.style.bottom))) o.root.style.bottom = "0px";
+
+		o.minX	= typeof minX !== 'undefined' ? minX : null;
+		o.minY	= typeof minY !== 'undefined' ? minY : null;
+		o.maxX	= typeof maxX !== 'undefined' ? maxX : null;
+		o.maxY	= typeof maxY !== 'undefined' ? maxY : null;
+
+		o.xMapper = fXMapper ? fXMapper : null;
+		o.yMapper = fYMapper ? fYMapper : null;
+
+        o.onmousedown	= Drag.start;
+		o.root.onDragStart	= new Function();
+		o.root.onDragEnd	= new Function();
+		o.root.onDrag		= new Function();
+	},
+
+	start : function(e)
+	{
+        var o = Drag.obj = this;
+		e = Drag.fixE(e);
+		var y = Drag.parseIntpx(o.vmode ? o.root.style.top  : o.root.style.bottom);
+		var x = Drag.parseIntpx(o.hmode ? o.root.style.left : o.root.style.right );
+		o.root.onDragStart(x, y);
+
+		o.lastMouseX	= e.clientX;
+		o.lastMouseY	= e.clientY;
+
+		if (o.hmode) {
+			if (o.minX !==null)	o.minMouseX	= e.clientX - x + o.minX;
+			if (o.maxX !== null)	o.maxMouseX	= o.minMouseX + o.maxX - o.minX;
+		} else {
+			if (o.minX !== null) o.maxMouseX = -o.minX + e.clientX + x;
+			if (o.maxX !== null) o.minMouseX = -o.maxX + e.clientX + x;
+		}
+
+		if (o.vmode) {
+			if (o.minY !== null)	o.minMouseY	= e.clientY - y + o.minY;
+			if (o.maxY !== null)	o.maxMouseY	= o.minMouseY + o.maxY - o.minY;
+		} else {
+			if (o.minY !== null) o.maxMouseY = -o.minY + e.clientY + y;
+			if (o.maxY !== null) o.minMouseY = -o.maxY + e.clientY + y;
+		}
+
+		document.onmousemove	= Drag.drag;
+		document.onmouseup		= Drag.end;
+
+		return false;
+	},
+
+	drag : function(e)
+	{
+		e = Drag.fixE(e);
+		var o = Drag.obj;
+        if (o === null) return;
+		var ey	= e.clientY;
+		var ex	= e.clientX;
+		var y = Drag.parseIntpx(o.vmode ? o.root.style.top  : o.root.style.bottom);
+		var x = Drag.parseIntpx(o.hmode ? o.root.style.left : o.root.style.right );
+		var nx, ny;
+
+		if (o.minX !== null) ex = o.hmode ? Math.max(ex, o.minMouseX) : Math.min(ex, o.maxMouseX);
+		if (o.maxX !== null) ex = o.hmode ? Math.min(ex, o.maxMouseX) : Math.max(ex, o.minMouseX);
+		if (o.minY !== null) ey = o.vmode ? Math.max(ey, o.minMouseY) : Math.min(ey, o.maxMouseY);
+		if (o.maxY !== null) ey = o.vmode ? Math.min(ey, o.maxMouseY) : Math.max(ey, o.minMouseY);
+
+		nx = x + ((ex - o.lastMouseX) * (o.hmode ? 1 : -1));
+		ny = y + ((ey - o.lastMouseY) * (o.vmode ? 1 : -1));
+
+		if (o.xMapper)		nx = o.xMapper(y);
+		else if (o.yMapper)	ny = o.yMapper(x);
+
+		Drag.obj.root.style[o.hmode ? "left" : "right"] = nx + "px";
+		Drag.obj.root.style[o.vmode ? "top" : "bottom"] = ny + "px";
+		Drag.obj.lastMouseX	= ex;
+		Drag.obj.lastMouseY	= ey;
+
+		Drag.obj.root.onDrag(nx, ny);
+		return false;
+	},
+
+	end : function()
+	{
+        if (Drag.obj === null || Drag.obj.root === null)   return;     
+		document.onmousemove = null;
+		document.onmouseup   = null;
+		Drag.obj.root.onDragEnd(	Drag.parseIntpx(Drag.obj.root.style[Drag.obj.hmode ? "left" : "right"]), 
+									Drag.parseIntpx(Drag.obj.root.style[Drag.obj.vmode ? "top" : "bottom"]));
+		var ex = Drag.obj.lastMouseX;
+		var ey = Drag.obj.lastMouseY;
+      Drag.obj = null;
+      if (typeof atEndDrag ==='function')atEndDrag(ex,ey);
+	
+   },
+
+	fixE : function(e)
+	{
+		if (typeof e === 'undefined') e = window.event;
+		if (typeof e.layerX === 'undefined') e.layerX = e.offsetX;
+		if (typeof e.layerY === 'undefined') e.layerY = e.offsetY;
+		return e;
+	}
+};
+=======
+>>>>>>> 67a54a5659af1e68c238fb2058c112a0ac024243
 
